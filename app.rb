@@ -123,7 +123,7 @@ require "csv"
 
 month = sprintf("%02d", month)
 output_file = "data/event_#{year}#{month}.csv"
-CSV.open(output_file, "wb") do |csv|
+CSV.open(output_file, "wb:Shift_JIS:UTF-8") do |csv|
   events.each do |event|
     event.start.dateTime.to_s.match(/^([\d]{4}-[\d]{2}-[\d]{2})\s([\d]{2}:[\d]{2})/)
     event_start_date = $1
