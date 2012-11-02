@@ -72,8 +72,9 @@ year = gets.strip.to_i
 print "what month? (1-12) \n> "
 month = gets.strip.to_i
 
-time_min = Time.utc(year, month, 1, 9).iso8601
-time_max = Time.utc(year, month, 31, 9).iso8601
+# time_minとtime_maxはUTCで指定する(+9しない)
+time_min = Time.utc(year, month, 1, 0).iso8601
+time_max = Time.utc(year, month, 31, 0).iso8601
 #exit
 
 # 特定のカレンダーのイベントを取得する
@@ -115,7 +116,6 @@ while true
                           :parameters => params)
 end
 
-#p events
 
 
 # イベント一覧をCSVに書き出す
