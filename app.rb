@@ -135,6 +135,24 @@ def event_start_time(event)
   end
 end
 
+def event_end_date(event)
+  if event.end.date
+    event.end.date
+  else
+    event.end.dateTime.to_s.match(/^([\d]{4}-[\d]{2}-[\d]{2})\s([\d]{2}:[\d]{2})/)
+    $1
+  end
+end
+
+def event_end_time(event)
+  if event.end.date
+    nil
+  else
+    event.end.dateTime.to_s.match(/^([\d]{4}-[\d]{2}-[\d]{2})\s([\d]{2}:[\d]{2})/)
+    $2
+  end
+end
+
 # イベント一覧をCSVに書き出す
 require "csv"
 
@@ -142,22 +160,7 @@ month = sprintf("%02d", month)
 output_file = "data/event_#{year}#{month}.csv"
 CSV.open(output_file, "wb:Shift_JIS:UTF-8") do |csv|
   events.each do |event|
-    #if event.start.date
-      #event_start_time = nil
-    #else
-      #event.start.dateTime.to_s.match(/^([\d]{4}-[\d]{2}-[\d]{2})\s([\d]{2}:[\d]{2})/)
-      #event_start_time = $2
-    #end
-
-    if event.end.date
-      event_end_date = event.end.date
-      event_end_time = nil
-    else
-      event.end.dateTime.to_s.match(/^([\d]{4}-[\d]{2}-[\d]{2})\s([\d]{2}:[\d]{2})/)
-      event_end_date = $1
-      event_end_time = $2
-    end
-    csv << [event_start_date(event), event_start_time(event), event_end_date, event_end_time, event.summary]
+    csv << [event_start_date(event), event_start_time(event), event_end_date(event), event_end_time(event), event.summary]
   end
 end
 
