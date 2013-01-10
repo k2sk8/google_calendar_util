@@ -10,6 +10,6 @@ Googleカレンダーのイベント一覧を取得してCSVファイルに書�
 
 実行方法
 
-    % ruby app.rb
+    % ruby app.rb [-c num] [month] [year]
 
-生成されたCSVファイルは`data`ディレクトリに格納されます。
+取得したイベントデータをCSV形式で標準出力へ表示します．
